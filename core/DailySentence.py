@@ -15,8 +15,8 @@ def get_sentence():
     try:
         url = 'http://news.iciba.com/dailysentence/'
         html = request.urlopen(url).read().decode()
-    except Exception as error:
-        return
+    except IOError:
+        return 'NetWork Error'
     else:
         patten = re.compile(r'<a target="_blank" href=.*?detail.*?</a>')
         en = patten.findall(html)[2].split('>')[1].split('<')[0]

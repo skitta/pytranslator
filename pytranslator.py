@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from core import BaiduTranslator, DailySentence
+from core import DailySentence
+from core.baidu import dict
 
 
 class Translator(QtWidgets.QWidget):
@@ -20,13 +21,15 @@ class Translator(QtWidgets.QWidget):
         self.text_out.setGeometry(QtCore.QRect(20, 50, 200, 250))
 
         self.text_in.returnPressed.connect(self.key_event)
+        # TODO text_out showEvent
 
     def key_event(self):
         input_str = self.text_in.text()
-        self.text_out.setText(BaiduTranslator.translate(input_str))
+        self.text_out.setText(dict.translate(input_str))
 
     def config_show_event(self):
         self.text_out.setText(DailySentence.get_sentence())
+
 
 if __name__ == "__main__":
     import sys
